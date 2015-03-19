@@ -1,0 +1,16 @@
+#-*- restclient -*-
+# (defvar akey "UNREAL9IO1FVBZ9DAFV15A0DB8NOTHIS")
+# (defvar skey "M65Dt/9EB2VZMFiWzfb/aIJspBL1sKzh8hr4uubesgd s-- Nice Try!")
+
+:date := (setq time-now (s3--format-date))
+:s3-auth := (s3auth "http://192.168.122.150:7480" "GET" akey skey nil nil time-now)
+GET http://192.168.122.150:7480
+authorization: :s3-auth
+Date: :date
+
+#
+:date := (setq time-now (s3--format-date))
+:s3-auth := (s3auth "http://192.168.122.150:7480/foobar" "GET" akey skey nil nil time-now)
+GET http://192.168.122.150:7480/foobar
+authorization: :s3-auth
+Date: :date
