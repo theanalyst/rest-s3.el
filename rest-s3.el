@@ -44,21 +44,23 @@
    You probably should NEVER store this"
   :type 'string)
 
+(defun parse-s3-url (uri)
+  (let* ((uri-struct (url-generic-parse-url uri))
+	 (filename (url-filename uri-struct)))
+    (if (string= "" filename) "/" filename)))
+
 (defun canonicalize (uri method &optional content-type content-md5 date)
   "No, I didn't mean you Ubuntu!
   Headers "
-  (let* ((s3-url (url-generic-parse-url uri))
-	 (filepath (s-split-up-to "/" (url-filename s3-url) 2))
-	 (bucket (cadr filepath))
-	 (object (-last-item filepath)))
-    (concat method "\n"
-	    (or content-type "") "\n"
-	    (or content-md5 "") "\n"
-	    (or date "") "\n"
-	    filepath)))
+  (let* ((filepath (parse-s3-url uri)))
+      (concat method "\n"
+	      (or content-type "") "\n"
+	      (or content-md5 "") "\n"
+	      (or date "") "\n"
+	      filepath)))
 
-(defun s3auth (uri method access secret &optional content-type content-md5 date)
-  (concat "Authorization : AWS "
-	  access ":"
-	  (hmac-sha1 secret
-		     (canonicalize uri method content-type content-md5 date))))
+(defun s3auth (uri method access secret date)
+  (format "AWS %s:%s" access
+	  (base64-encode-string
+	   (hmac-sha1 secret
+		      (canonicalize uri method "" "" date)))))
