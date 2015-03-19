@@ -50,17 +50,17 @@
     (if (string= "" filename) "/" filename)))
 
 (defun s3--format-date ()
-  (format-time-string "%a, %d %b %Y %X %Z" nil 1))
+  (format-time-string "%a, %d %b %Y %H:%M:%S %Z" nil 1))
 
 (defun s3--canonicalize (uri method &optional content-type content-md5 date)
   "No, I didn't mean you Ubuntu!
   Headers "
-  (let* ((filepath (parse-s3-url uri)))
-      (concat method "\n"
+  (let* ((filepath (s3--parse-s3-url uri)))
+    (string-make-unibyte (concat method "\n"
 	      (or content-type "") "\n"
 	      (or content-md5 "") "\n"
 	      (or date "") "\n"
-	      filepath)))
+	      filepath))))
 
 (defun s3auth (uri method access secret &rest args)
   (format "AWS %s:%s" access
