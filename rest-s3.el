@@ -32,8 +32,6 @@
 
 (require 'hmac-sha1)
 (require 's)
-(require 'dash)
-
 
 (defcustom s3-access-key-id nil
   "Access Key for AWS/ S3 like system account"
@@ -48,6 +46,12 @@
   (let* ((uri-struct (url-generic-parse-url uri))
 	 (filename (url-filename uri-struct)))
     (if (string= "" filename) "/" filename)))
+
+(defun s3--normalize-path (filepath)
+  (if (s-equals? "/" (s-left 1 filepath))
+      filepath
+      (concat "/" filepath)
+    ))
 
 (defun s3--format-date ()
   (format-time-string "%a, %d %b %Y %H:%M:%S %Z" nil t))
@@ -76,4 +80,4 @@ args     -  takes following arguments for now : content-type, content-md5 and da
   (format "AWS %s:%s" access
 	  (base64-encode-string
 	   (hmac-sha1 secret
-          (apply #'s3--canonicalize filepath method args)))))
+                (apply #'s3--canonicalize (s3--normalize-path filepath) method args)))))
