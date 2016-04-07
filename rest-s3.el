@@ -50,7 +50,7 @@
     (if (string= "" filename) "/" filename)))
 
 (defun s3--format-date ()
-  (format-time-string "%a, %d %b %Y %H:%M:%S %Z" nil 1))
+  (format-time-string "%a, %d %b %Y %H:%M:%S %Z" nil t))
 
 (defun s3--canonicalize (uri method &optional content-type content-md5 date)
   "No, I didn't mean you Ubuntu!
