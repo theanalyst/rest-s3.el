@@ -3,6 +3,7 @@
 # (defvar akey "1555b35654ad1656d804")
 # (defvar skey "h7GhxuBLTrlhVUyxSPUKUV8r/2EI4ngqJxD7iBdBYLhwluN30JaT3Q==")
 
+# Get the current realm
 :date := (setq time-now (s3--format-date))
 :path := (setq path "admin/realm/period")
 :s3-auth := (s3auth path "GET" akey skey nil nil time-now)
@@ -10,9 +11,3 @@ GET http://127.0.0.1:8001/:path
 authorization: :s3-auth
 Date: :date
 
-#
-:date := (setq time-now (s3--format-date))
-:s3-auth := (s3auth "http://192.168.122.150:7480/foobar" "GET" akey skey nil nil time-now)
-GET http://192.168.122.150:7480/foobar
-authorization: :s3-auth
-Date: :date
