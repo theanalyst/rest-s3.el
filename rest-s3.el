@@ -66,7 +66,7 @@
 
 The following parameters are expected:
 
-filepath -  the request path, the path after "/" in hostname, for eg. s3.amazonaws.com/bucket -> bucket
+filepath -  the request path, the path after / in hostname, for eg. s3.amazonaws.com/bucket -> bucket
             if you are planning to pass an uri instead, you can use the s3-parse-url helper on the url
 method   -  the request method, GET, PUT etc
 access   -  the aws access key
