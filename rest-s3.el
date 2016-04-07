@@ -52,18 +52,28 @@
 (defun s3--format-date ()
   (format-time-string "%a, %d %b %Y %H:%M:%S %Z" nil t))
 
-(defun s3--canonicalize (uri method &optional content-type content-md5 date)
+(defun s3--canonicalize (filepath method &optional content-type content-md5 date)
   "No, I didn't mean you Ubuntu!
   Headers "
-  (let* ((filepath (s3--parse-s3-url uri)))
-    (string-make-unibyte (concat method "\n"
-	      (or content-type "") "\n"
-	      (or content-md5 "") "\n"
-	      (or date "") "\n"
-	      filepath))))
+  (string-make-unibyte (concat method "\n"
+                               (or content-type "") "\n"
+                               (or content-md5 "") "\n"
+                               (or date "") "\n"
+                               filepath)))
 
-(defun s3auth (uri method access secret &rest args)
+(defun s3auth (filepath method access secret &rest args)
+  "Create S3 Authentication Headers
+
+The following parameters are expected:
+
+filepath -  the request path, the path after "/" in hostname, for eg. s3.amazonaws.com/bucket -> bucket
+            if you are planning to pass an uri instead, you can use the s3-parse-url helper on the url
+method   -  the request method, GET, PUT etc
+access   -  the aws access key
+secret   -  the aws secret key
+args     -  takes following arguments for now : content-type, content-md5 and date (in amz format)
+"
   (format "AWS %s:%s" access
 	  (base64-encode-string
 	   (hmac-sha1 secret
-		      (apply #'s3--canonicalize uri method args)))))
+          (apply #'s3--canonicalize filepath method args)))))
