@@ -11,3 +11,16 @@ GET http://127.0.0.1:8001/:path
 authorization: :s3-auth
 Date: :date
 
+# Create a user
+:date := (setq time-now (s3--format-date))
+:path := (setq path "admin/user")
+:s3-auth := (s3auth path "PUT" akey skey nil nil time-now)
+PUT http://127.0.0.1:8001/:path
+authorization: :s3-auth
+Date: :date
+Content-Type : application/json
+
+{
+  "uid":"foo"
+  "display-name":"Foo User"
+}
