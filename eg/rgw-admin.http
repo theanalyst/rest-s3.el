@@ -1,7 +1,7 @@
 #-*- restclient -*-
 # eval these in your environment
-# (defvar akey "1555b35654ad1656d804")
-# (defvar skey "h7GhxuBLTrlhVUyxSPUKUV8r/2EI4ngqJxD7iBdBYLhwluN30JaT3Q==")
+# (setq akey "6USFJP335ZEE1O886EEM")
+# (setq skey "9Og2LTLM40Tht2Aqvk19H7akvANpRNAAERuma3Yr")
 
 # Get the current realm
 :date := (setq time-now (s3--format-date))
