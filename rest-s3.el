@@ -50,8 +50,7 @@
 (defun s3--normalize-path (filepath)
   (if (s-equals? "/" (s-left 1 filepath))
       filepath
-      (concat "/" filepath)
-    ))
+      (concat "/" filepath)))
 
 (defun s3--format-date ()
   (format-time-string "%a, %d %b %Y %H:%M:%S %Z" nil t))
