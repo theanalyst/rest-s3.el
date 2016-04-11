@@ -4,25 +4,25 @@
 # (setq skey "9Og2LTLM40Tht2Aqvk19H7akvANpRNAAERuma3Yr")
 
 # Get the current realm
-:date := (setq time-now (s3--format-date))
 :path := (setq path "admin/realm/period")
+:date := (setq time-now (s3--format-date))
 :s3-auth := (s3auth path "GET" akey skey nil nil time-now)
 GET http://127.0.0.1:8001/:path
 authorization: :s3-auth
 Date: :date
 
 # Create a user
-:date := (setq time-now (s3--format-date))
 :path := (setq path "admin/user")
+:date := (setq time-now (s3--format-date))
 :s3-auth := (s3auth path "PUT" akey skey nil nil time-now)
-PUT http://127.0.0.1:8001/:path?uid=foo&display-name=foo
+PUT http://127.0.0.1:8001/:path?uid=bar
 authorization: :s3-auth
 Date: :date
 Content-Type : application/json
 
 # Get a user
-:date := (setq time-now (s3--format-date))
 :path := (setq path "admin/user")
+:date := (setq time-now (s3--format-date))
 :s3-auth := (s3auth path "GET" akey skey nil nil time-now)
 GET http://127.0.0.1:8001/:path
 authorization: :s3-auth
@@ -30,8 +30,8 @@ Date: :date
 Content-Type : application/json
 
 # Get all users
-:date := (setq time-now (s3--format-date))
 :path := (setq path "admin/metadata/user")
+:date := (setq time-now (s3--format-date))
 :s3-auth := (s3auth path "GET" akey skey nil nil time-now)
 GET http://127.0.0.1:8001/:path
 authorization: :s3-auth
