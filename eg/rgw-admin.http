@@ -1,13 +1,13 @@
 #-*- restclient -*-
 # eval these in your environment
-# (setq akey "6USFJP335ZEE1O886EEM")
-# (setq skey "9Og2LTLM40Tht2Aqvk19H7akvANpRNAAERuma3Yr")
+# (setq akey "abc")
+# (setq skey "abc")
 
 # Get the current realm
 :path := (setq path "admin/realm/period")
 :date := (setq time-now (s3--format-date))
 :s3-auth := (s3auth path "GET" akey skey nil nil time-now)
-GET http://127.0.0.1:8001/:path
+GET http://127.0.0.1:8000/:path
 authorization: :s3-auth
 Date: :date
 
@@ -15,7 +15,7 @@ Date: :date
 :path := (setq path "admin/user")
 :date := (setq time-now (s3--format-date))
 :s3-auth := (s3auth path "PUT" akey skey nil nil time-now)
-PUT http://127.0.0.1:8001/:path
+PUT http://127.0.0.1:8000/:path
 authorization: :s3-auth
 Date: :date
 Content-Type : application/json
@@ -24,7 +24,7 @@ Content-Type : application/json
 :path := (setq path "admin/user")
 :date := (setq time-now (s3--format-date))
 :s3-auth := (s3auth path "GET" akey skey nil nil time-now)
-GET http://127.0.0.1:8001/:path
+GET http://127.0.0.1:8000/:path
 authorization: :s3-auth
 Date: :date
 Content-Type : application/json
@@ -33,7 +33,7 @@ Content-Type : application/json
 :path := (setq path "admin/metadata/user")
 :date := (setq time-now (s3--format-date))
 :s3-auth := (s3auth path "GET" akey skey nil nil time-now)
-GET http://127.0.0.1:8001/:path
+GET http://127.0.0.1:8000/:path
 authorization: :s3-auth
 Date: :date
 Content-Type : application/json
@@ -42,7 +42,7 @@ Content-Type : application/json
 :path := (setq path "admin/metadata")
 :date := (setq time-now (s3--format-date))
 :s3-auth := (s3auth path "GET" akey skey nil nil time-now)
-GET http://127.0.0.1:8001/:path
+GET http://127.0.0.1:8000/:path
 authorization: :s3-auth
 Date: :date
 Content-Type : application/json
@@ -51,7 +51,25 @@ Content-Type : application/json
 :path := (setq path "admin/metadata/bucket")
 :date := (setq time-now (s3--format-date))
 :s3-auth := (s3auth path "GET" akey skey nil nil time-now)
-GET http://127.0.0.1:8001/:path
+GET http://127.0.0.1:8000/:path
+authorization: :s3-auth
+Date: :date
+Content-Type : application/json
+
+# bucket.instance????
+:path := (setq path "admin/metadata/bucket.instance")
+:date := (setq time-now (s3--format-date))
+:s3-auth := (s3auth path "GET" akey skey nil nil time-now)
+GET http://127.0.0.1:8000/:path
+authorization: :s3-auth
+Date: :date
+Content-Type : application/json
+
+# bucket stats; equivalent to radosgw-admin bucket stats
+:path := (setq path "admin/bucket")
+:date := (setq time-now (s3--format-date))
+:s3-auth := (s3auth path "GET" akey skey nil nil time-now)
+GET http://127.0.0.1:8000/:path?stats=True
 authorization: :s3-auth
 Date: :date
 Content-Type : application/json
